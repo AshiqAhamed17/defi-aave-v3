@@ -26,6 +26,16 @@ contract Borrow {
     function approxMaxBorrow(address token) public view returns (uint256) {
         // Task 1.1 - Get asset price from the oracle.
         // The price is returned with 8 decimals (1e8 = 1 USD)
+        uint256 price = oracle.getAssetPrice(token);
+
+        // Convert price to USD
+        uint256 usdPrice = price / 1e8;
+
+        // Task 1.2 - Get the decimals of token
+        uint256 decimals = IERC20Metadata(token).decimals();
+
+        // Convert amount to USD
+        uint256 amountUSD = amount * usdPrice / 1e18;
 
         // Task 1.2 - Get the decimals of token
 
